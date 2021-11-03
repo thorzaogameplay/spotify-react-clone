@@ -1,17 +1,24 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
+import { Switch, Route, Link } from "react-router-dom";
 import { increment, decrement } from "./store/reducers/counterSlice";
+import { Login } from "./containers/login";
+import { Auth } from "./containers/auth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Home } from "./containers/home";
+import { PrivateRoute } from "./containers/privateRoute";
 
 function App() {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
-
   return (
     <div className="App">
-      <button onClick={() => dispatch(increment())}>increment</button>
-      <span>{count}</span>
-      <button onClick={() => dispatch(decrement())}>decrement</button>
+      <ToastContainer />
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/auth" component={Auth} />
+        <PrivateRoute path="/home" comp={Home} />
+      </Switch>
     </div>
   );
 }
